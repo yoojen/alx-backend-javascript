@@ -9,5 +9,5 @@ export default function cleanSet(set, startString) {
       fullString.push(element.substring(startString.length));
     }
   });
-    return fullString.join('-');
+  return fullString.join('-');
 }

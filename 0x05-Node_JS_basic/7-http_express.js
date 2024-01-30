@@ -6,7 +6,6 @@ const FILE_PATH = process.argv.length > 2 ? process.argv[2] : "";
 app = express();
 
 app.get("/", (_, res) => {
-  res.setHeader("Content-Type", "plain/text");
   res.send("Hello Holberton School!");
 });
 

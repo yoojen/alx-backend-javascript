@@ -10,20 +10,25 @@ app.get("/", (_, res) => {
 });
 
 app.get("/students", (_, res) => {
-  const responseParts = ["This is the list of our students"];
+  const resObject = ["This is the list of our students"];
   countStudents(FILE_PATH)
     .then((msgs) => {
       for (let i = 0; i < msgs.length; i++) {
-        responseParts.push(msgs[i]);
+        resObject.push(msgs[i]);
       }
-      const resText = responseParts.join("\n");
+      const resText = resObject.join("\n");
       res.setHeader("Content-Type", "plain/text");
       res.setHeader("Content-Length", resText.length);
       res.statusCode = 200;
       res.write(Buffer.from(resText));
     })
     .catch((err) => {
-      console.log(err);
+      resObject.push(err instanceof Error ? err.message : err.toString());
+      const resText = resObject.join("\n");
+      res.setHeader("Content-Type", "text/plain");
+      res.setHeader("Content-Length", resText.length);
+      res.statusCode = 200;
+      res.write(Buffer.from(resText));
     });
 });
 

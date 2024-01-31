@@ -8,7 +8,7 @@ const app = http.createServer((_, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
   res.setHeader('Content-Length', responeText.length);
-  res.end(responeText);
+  res.write(Buffer.from(responeText));
 });
 
 app.listen(PORT, HOSTNAME, () => {

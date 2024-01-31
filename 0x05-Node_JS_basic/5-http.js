@@ -10,7 +10,9 @@ const countStudents = (path) =>
     file_data = [];
     let NUMBER_OF_STUDENTS = 0;
     let occurance = {};
-
+    if (!path) {
+      reject(new Error('Cannot load the database'));
+    }
     fs.readFile(path, 'utf-8', (err, data) => {
       if (err) {
         reject(new Error('Cannot load the database'));
@@ -69,6 +71,9 @@ app = http.createServer((req, res) => {
   const url = req.url;
 
   if (url == '/') {
+    res.setHeader('Content-Type', 'text/plain');
+    res.setHeader('Content-Length', responseText.length);
+    res.statusCode = 200;
     res.end('Hello Holberton School!');
   }
   if (url == '/students') {
@@ -85,7 +90,12 @@ app = http.createServer((req, res) => {
         res.write(Buffer.from(resText));
       })
       .catch((err) => {
-        console.log(err);
+        responseParts.push(err instanceof Error ? err.message : err.toString());
+        const resText = responseParts.join('\n');
+        res.setHeader('Content-Type', 'text/plain');
+        res.setHeader('Content-Length', resText.length);
+        res.statusCode = 200;
+        res.write(Buffer.from(resText));
       });
   }
 });

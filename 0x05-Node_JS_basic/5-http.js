@@ -67,12 +67,11 @@ const countStudents = (path) =>
   });
 
 app = http.createServer((req, res) => {
-  res.setHeader('Content-Type', 'plain/text');
   const url = req.url;
-
   if (url == '/') {
+    const resText = 'Hello Holberton School!';
     res.setHeader('Content-Type', 'text/plain');
-    res.setHeader('Content-Length', responseText.length);
+    res.setHeader('Content-Length', resText.length);
     res.statusCode = 200;
     res.end('Hello Holberton School!');
   }

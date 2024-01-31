@@ -43,7 +43,7 @@ function countStudents(path) {
     let names = [];
     for (let i = 0; i < occurance[key].length; i++) {
       names.push(' ' + occurance[key][i].first_name);
-      count++;
+      count = count + 1;
     }
     console.log(
       `Number of students in ${key}: ${
